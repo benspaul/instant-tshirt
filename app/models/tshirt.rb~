@@ -1,0 +1,75 @@
+# Clipart search page and class containing clipart results
+SEARCH_URL = 'http://www.customink.com/clipart/search?keyword='
+CLIPART_CLASS = "a.browseClipart_clipArtLink"
+
+# Input must have certain amount of characters
+MIN_INPUT_LEN = 3
+
+# Only search for words with certain amount of characters
+MIN_WORD_LEN = 2
+
+# Use first clipart result
+RESULT_NUM = 0
+
+class Tshirt < ActiveRecord::Base
+
+  before_validation :search_clipart
+  validates_length_of :caption, :minimum => MIN_INPUT_LEN
+  validates_presence_of :clipart
+  serialize :skipped
+
+  def search_clipart
+  # logger.info "tshirt = #{self.inspect}"
+    @skipped_words = []
+    get_stop_words
+
+    # For each word, search for images that match
+    self.caption.split.each_with_index do |word, index|
+
+      @word = word
+
+      # Skip if too short or a stop word
+      next if skip_word?
+
+      # Cliparts scraped from CustomInk
+      if cliparts.size > 0
+        # If matches found, save one of the matches and break.
+        self.clipart = cliparts[RESULT_NUM]
+        self.match = index
+        break
+      end
+
+    end
+  end
+  
+  def cliparts
+    # Scrape "name" attributes of clipart links.
+    # That's where CustomInk stores clipart ids.
+    cliparts_doc.search(CLIPART_CLASS).collect {
+        |a| a[:name]
+    }
+  end
+
+  def cliparts_doc
+    Hpricot( open( search_url ) )
+  end
+
+  def search_url
+    URI.encode(SEARCH_URL + @word)
+  end
+
+  def skip_word?
+    if @word.size < 2 or @stop_words.include?(@word.downcase.strip)
+      @skipped_words << index
+      return true
+    else
+      return false
+    end
+  end
+
+  def get_stop_words
+    @stop_words = []
+    File.open('stopwords').each { |a| @stop_words << a.downcase.strip }
+  end
+
+end

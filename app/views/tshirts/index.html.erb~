@@ -1,0 +1,12 @@
+<h1>All T-shirts</h1>
+
+<ul>
+  <% @tshirts.each do |tshirt| %>
+    <li>
+      <%= link_to tshirt.caption, tshirt_path(tshirt), 
+      :class => 'tshirt_caption', :id => "tshirt_#{tshirt.id}" %>
+    </li>
+  <% end %>
+</ul>
+<br/>
+<%= link_to "New T-shirt", new_tshirt_path, :class => 'new_tshirt',  %>

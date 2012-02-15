@@ -1,0 +1,49 @@
+require "open-uri"
+
+class TshirtsController < ApplicationController
+  def index
+    @tshirts = Tshirt.all
+  end
+  def show
+    @tshirt = Tshirt.find(params[:id])
+#    no_match = (0...@tshirt.match).to_a - @tshirt.skipped
+#    if !no_match.empty?
+#      @no_match_words = no_match.map { |i|
+#        "'" + @tshirt.caption.split[i].to_s.capitalize + "'"
+#      }.join(", ")
+#    end
+#    if !@tshirt.skipped.empty?
+#      @skipped_words = @tshirt.skipped.map { |i|
+#        "'" + @tshirt.caption.split[i].to_s.capitalize + "'"
+#      }.join(", ")
+#    end
+    if !@tshirt.match.nil?
+      @matched_word = @tshirt.caption.split[@tshirt.match]
+    end
+  end
+  def new
+    @tshirt = Tshirt.new
+  end
+  def create
+    @tshirt = Tshirt.create!(params[:tshirt])
+#    @tshirt.skipped = @tshirt.get_skipped_words
+ #   begin
+ #     @tshirt.save!
+ #   rescue
+ #     abort("invalid!")
+ #   end
+    redirect_to tshirt_path(@tshirt)
+  end
+  def edit
+    @tshirt = Tshirt.find(params[:id])
+  end
+  def update
+    @tshirt = Tshirt.find(params[:id])
+    @tshirt.update_attributes(params[:tshirt])
+    redirect_to tshirt_path(@tshirt)
+  end
+  def destroy
+    Tshirt.find(params[:id]).destroy
+    redirect_to tshirts_path
+  end
+end

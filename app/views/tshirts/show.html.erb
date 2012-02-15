@@ -1,0 +1,33 @@
+<h1><%= @tshirt.caption %></h1>
+<div style="left: 0%; top: 0%;" class="labView" id="view_1">
+  <img class="modelImage" id="view_1_modelImage_front" src="http://customink.com/items/15009/1front.jpg">
+  <div class="workArea" id="ext-gen73">
+    <div class="constraint" id="view_1_const_0" style="left: 130px; top: 94px; width: 260px; height: 340px;">
+      <% if !@tshirt.clipart.nil? %>
+        <div class="labIcon IMAGE_icon" id="view_1_icon_IMAGE_<%= @tshirt.clipart %>_0" style="left: 75px; top: 10px;">
+	  <img id="img_view_1_icon_IMAGE_<%= @tshirt.clipart %>_0" class=" created_at-1328671521542 resize" src="http://customink.com/clipart/manipulate?lockRatio=true&width=100&height=100&clipart_id=<%= @tshirt.clipart %>">
+        </div>
+      <% end %>
+      <div style="position: relative; text-align: center; margin-left: auto; margin-right: auto; font-size: 20px; top: 120px; width: 65%; color: black; right: 10px;" >
+	<b><%= @tshirt.caption %></b>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<ul>
+<% if !@matched_word.nil? %>
+  <li><b>Found an image for '<%= @matched_word %>'.</b></li>
+<% end %>
+<% if !@tshirt.no_match.empty? %>
+  <li>Didn't find an image for <%= list_words( @tshirt.no_match ) %>.</li>
+<% end %>
+<% if !@tshirt.skipped.empty? %>
+  <li>Skipped minor words <%= list_words( @tshirt.skipped ) %>.</li>
+<% end %>
+</ul>
+<br/>
+<%= link_to "edit", edit_tshirt_path(@tshirt) %>
+<%= link_to "delete", tshirt_path(@tshirt), :method => :delete, :confirm => "Really delete the T-shirt that says '#{@tshirt.caption}'?" %>
+<br/><br/>
+<%= link_to "<< Back to T-shirts List", tshirts_path %>
