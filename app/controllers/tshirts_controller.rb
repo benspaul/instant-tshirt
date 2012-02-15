@@ -1,6 +1,5 @@
-require "open-uri"
-
 class TshirtsController < ApplicationController
+  before_filter :authenticate
   def index
     @tshirts = Tshirt.all
   end
@@ -29,4 +28,13 @@ class TshirtsController < ApplicationController
     Tshirt.find(params[:id]).destroy
     redirect_to tshirts_path
   end
+
+protected
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "customink" && password == "rocks"
+    end
+  end
+
 end

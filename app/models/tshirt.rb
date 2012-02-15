@@ -1,3 +1,5 @@
+require "open-uri"
+
 # Clipart search page and class containing clipart results
 SEARCH_URL = 'http://www.customink.com/clipart/search?keyword='
 CLIPART_CLASS = "a.browseClipart_clipArtLink"
