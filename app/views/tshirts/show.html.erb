@@ -2,13 +2,13 @@
 <div style="left: 0%; top: 0%;" class="labView" id="view_1">
   <img class="modelImage" id="view_1_modelImage_front" src="http://customink.com/items/15009/1front.jpg">
   <div class="workArea" id="ext-gen73">
-    <div class="constraint" id="view_1_const_0" style="left: 130px; top: 94px; width: 260px; height: 340px;">
+    <div class="constraint" id="view_1_const_0">
       <% if !@tshirt.clipart.nil? %>
-        <div class="labIcon IMAGE_icon" id="view_1_icon_IMAGE_<%= @tshirt.clipart %>_0" style="left: 75px; top: 10px;">
-	  <img id="img_view_1_icon_IMAGE_<%= @tshirt.clipart %>_0" class=" created_at-1328671521542 resize" src="http://customink.com/clipart/manipulate?lockRatio=true&width=100&height=100&clipart_id=<%= @tshirt.clipart %>">
+        <div class="labIcon IMAGE_icon" id="view_1_icon_IMAGE_<%= @tshirt.clipart %>_0">
+	  <img id="img_view_1_icon_IMAGE_<%= @tshirt.clipart %>_0" class="resize" src="http://customink.com/clipart/manipulate?lockRatio=true&width=100&height=100&clipart_id=<%= @tshirt.clipart %>">
         </div>
       <% end %>
-      <div style="position: relative; text-align: center; margin-left: auto; margin-right: auto; font-size: 20px; top: 120px; width: 65%; color: black; right: 10px;" >
+      <div class="caption">
 	<b><%= @tshirt.caption %></b>
       </div>
     </div>
