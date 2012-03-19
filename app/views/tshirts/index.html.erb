@@ -1,12 +1,18 @@
 <h1>Instant T-shirts</h1>
 
-<ul>
-  <% @tshirts.each do |tshirt| %>
-    <li>
-      <%= link_to tshirt.caption, tshirt_path(tshirt), 
-      :class => 'tshirt_caption', :id => "tshirt_#{tshirt.id}" %>
-    </li>
-  <% end %>
-</ul>
+<p>
+  <ul>
+    <% @tshirts.each do |tshirt| %>
+      <li>
+	<%= link_to tshirt.caption, tshirt_path(tshirt), 
+	    :class => 'tshirt_caption', :id => "tshirt_#{tshirt.id}" %>
+      </li>
+    <% end %>
+  </ul>
+</p>
 <br/>
-<%= link_to "New T-shirt", new_tshirt_path, :class => 'new_tshirt',  %>
+<p>
+  <b>
+    <%= link_to "Create a T-shirt", new_tshirt_path, :class => 'new_tshirt'  %>
+  </b>
+</p>
